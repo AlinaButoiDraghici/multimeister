@@ -24,7 +24,7 @@ Tehnologii folosite:
 * Flutter & Dart
 * Firebase
 
-# Documentație
+# Specificații proiect
 https://docs.google.com/document/d/1iH1jo5pX_Sa_JigeE5PZb07N1tVFkAU_APg0khp1XVQ/edit?fbclid=IwAR1LXVCXZMylrmxottlpNe6km47P4PY4v7FTeSsmOkU9DFWHOy3qAzyUd04
 
 # Wireframes
