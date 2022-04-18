@@ -29,7 +29,7 @@ class _CustomButtonState extends State<CustomButton> {
           ),
           style: ElevatedButton.styleFrom(
               elevation: 0,
-              padding: EdgeInsets.all(12),
+              padding: EdgeInsets.all(AppMargins.S),
               minimumSize: Size(130, 45),
               primary: widget.isPrimary ? AppColors.Yellow : AppColors.DarkGray,
               shape: RoundedRectangleBorder(

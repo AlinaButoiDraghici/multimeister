@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: AppColors.Yellow,
       toolbarHeight: 50,
       leading: IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.search,
           size: 24,
         ),
@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       actions: [
         ElevatedButton(
           onPressed: () {},
-          child: Icon(Icons.person),
+          child: const Icon(Icons.person),
           style: ElevatedButton.styleFrom(
               primary: AppColors.DarkGray,
               shape: const CircleBorder(),
