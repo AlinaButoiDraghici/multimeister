@@ -32,8 +32,17 @@ class _ReviewTileState extends State<ReviewTile> {
           child: ListTile(
             contentPadding: EdgeInsets.all(AppMargins.S),
             tileColor: Colors.white,
-            title: Text(widget.name),
-            subtitle: Text("${widget.area}\n${widget.phone}"),
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: Text(
+                widget.name,
+                style: TextStyle(fontSize: AppFontSizes.M, color: Colors.black),
+              ),
+            ),
+            subtitle: Text(
+              "${widget.area}\n${widget.phone}",
+              style: TextStyle(fontSize: AppFontSizes.S, color: Colors.grey),
+            ),
             leading: CircleAvatar(
               //TODO: add profile photo if it exists
               backgroundColor: AppColors.Yellow,

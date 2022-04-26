@@ -5,6 +5,7 @@ import 'package:multimeister/ui_components/custom_button.dart';
 import 'package:multimeister/ui_components/custom_floating_button.dart';
 import 'package:multimeister/ui_components/custom_textfield.dart';
 import 'package:multimeister/ui_components/review_tile.dart';
+import 'package:multimeister/ui_components/work_card.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -21,38 +22,52 @@ class _HomeState extends State<Home> {
       floatingActionButton: CustomFloatingButton(
         onPressed: () {},
       ),
-      body: Container(
-          color: Colors.white,
-          child: Center(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 100,
-                ),
-                CustomButton(
-                  text: "Press me",
-                  onPressed: () {},
-                ),
-                SizedBox(
-                  height: 100,
-                ),
-                CustomTextField(
-                  label: "Name",
-                ),
-                SizedBox(
-                  height: 100,
-                ),
-                ReviewTile(
-                  name: "Gigel Ion",
-                  area: "Timisoara",
-                  phone: "+40",
-                  rating: 3,
-                ),
-              ],
+      body: SingleChildScrollView(
+        child: Container(
+            color: Colors.white,
+            child: Center(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  CustomButton(
+                    text: "Press me",
+                    onPressed: () {},
+                  ),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  CustomTextField(
+                    label: "Name",
+                  ),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  ReviewTile(
+                    name: "Gigel Ion",
+                    area: "Timisoara",
+                    phone: "+40",
+                    rating: 3,
+                  ),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  WorkCard(
+                    name: "Gigel Ion",
+                    area: "Timisoara",
+                    phone: "+40",
+                    title: "Mese lucrate manual",
+                    label: "Tamplarie",
+                    description:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                  ),
+                ],
+              ),
+            )
+            //Center(child: Text("Multimeister")),
             ),
-          )
-          //Center(child: Text("Multimeister")),
-          ),
+      ),
     );
   }
 }
