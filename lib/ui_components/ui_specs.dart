@@ -15,4 +15,5 @@ class AppFontSizes {
 class AppMargins {
   static double S = 12;
   static double M = 20;
+  static double L = 50;
 }
