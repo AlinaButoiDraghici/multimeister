@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multimeister/screens/home.dart';
+import 'package:multimeister/screens/profile_page.dart';
 import 'package:multimeister/ui_components/ui_specs.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch()
             .copyWith(primary: AppColors.DarkGray, secondary: AppColors.Yellow),
       ),
-      home: Home(),
+      home: ProfilePage(isMeister: true),
     );
   }
 }

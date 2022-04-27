@@ -34,7 +34,7 @@ class _WorkCardState extends State<WorkCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.all(AppMargins.M),
+        margin: EdgeInsets.all(AppMargins.S),
         child: Card(
           shadowColor: AppColors.DarkGray,
           elevation: 3,

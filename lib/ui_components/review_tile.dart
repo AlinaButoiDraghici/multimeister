@@ -24,7 +24,7 @@ class _ReviewTileState extends State<ReviewTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.all(AppMargins.M),
+        margin: EdgeInsets.all(AppMargins.S),
         child: Material(
           shadowColor: AppColors.DarkGray,
           elevation: 3,
