@@ -38,6 +38,7 @@ dependencies:
   firebase_auth: ^1.0.1 # add this line
   firebase_core: ^1.0.2 # add this line
   provider: ^6.0.2
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:

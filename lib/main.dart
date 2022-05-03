@@ -5,6 +5,7 @@ import 'package:multimeister/screens/home/home_wrapper.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:multimeister/services/auth.dart';
+import 'package:multimeister/ui_components/ui_specs.dart';
 
 
 void main() async {
@@ -27,8 +28,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Multimeister',
         theme: ThemeData(
-          primarySwatch: Colors.deepOrange,
-        ),
+        colorScheme: ColorScheme.fromSwatch()
+            .copyWith(primary: AppColors.DarkGray, secondary: AppColors.Yellow),
+      ),
         home: HomeWrapper(),
       )
     );
