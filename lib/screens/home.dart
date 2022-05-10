@@ -7,6 +7,9 @@ import 'package:multimeister/ui_components/custom_textfield.dart';
 import 'package:multimeister/ui_components/review_tile.dart';
 import 'package:multimeister/ui_components/work_card.dart';
 
+import '../models/review_model.dart';
+import '../models/work_model.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -15,58 +18,60 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // dummy lists for now
+  List<Review> reviewList = [
+    Review("Gica", "Tm", "07", 3),
+    Review("Gica", "Tm", "07", 3),
+    Review("Gica", "Tm", "07", 3)
+  ];
+  List<Work> workList = [
+    Work(
+        name: "Gigel Ion",
+        area: "Timisoara",
+        phone: "+40",
+        rating: 3,
+        title: "Mese lucrate manual",
+        label: "Tamplarie",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
+    Work(
+        name: "Gigel Ion",
+        area: "Timisoara",
+        phone: "+40",
+        rating: 3,
+        title: "Mese lucrate manual",
+        label: "Tamplarie",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
-      floatingActionButton: CustomFloatingButton(
-        onPressed: () {},
-      ),
+      appBar: CustomAppBar(showSearch: true),
       body: SingleChildScrollView(
         child: Container(
             color: Colors.white,
             child: Center(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  CustomButton(
-                    text: "Press me",
-                    onPressed: () {},
-                  ),
-                  SizedBox(
-                    height: 100,
-                  ),
-                  CustomTextField(
-                    label: "Name",
-                  ),
-                  SizedBox(
-                    height: 100,
-                  ),
-                  ReviewTile(
-                    name: "Gigel Ion",
-                    area: "Timisoara",
-                    phone: "+40",
-                    rating: 3,
-                  ),
-                  SizedBox(
-                    height: 100,
-                  ),
-                  WorkCard(
-                    name: "Gigel Ion",
-                    area: "Timisoara",
-                    phone: "+40",
-                    title: "Mese lucrate manual",
-                    label: "Tamplarie",
-                    description:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                  ),
+                  ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: workList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return WorkCard(
+                          name: workList[index].name,
+                          area: workList[index].area,
+                          phone: workList[index].phone,
+                          rating: workList[index].rating,
+                          title: workList[index].title,
+                          label: workList[index].label,
+                          description: workList[index].description,
+                        );
+                      }),
                 ],
               ),
-            )
-            //Center(child: Text("Multimeister")),
-            ),
+            )),
       ),
     );
   }
