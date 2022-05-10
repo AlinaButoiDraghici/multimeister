@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:multimeister/screens/profile_page.dart';
 import 'package:multimeister/ui_components/ui_specs.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+  final bool showSearch;
+  const CustomAppBar({Key? key, this.showSearch = false}) : super(key: key);
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
@@ -13,16 +15,27 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       backgroundColor: AppColors.Yellow,
       toolbarHeight: 50,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.search,
-          size: 24,
-        ),
-        onPressed: () {},
-      ),
+      leading: showSearch
+          ? IconButton(
+              icon: const Icon(
+                Icons.search,
+                size: 24,
+              ),
+              onPressed: () {},
+            )
+          : Container(),
       actions: [
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ProfilePage(
+                        //check isMeister based on user info
+                        isMeister: true,
+                      )),
+            );
+          },
           child: const Icon(Icons.person),
           style: ElevatedButton.styleFrom(
               primary: AppColors.DarkGray,
