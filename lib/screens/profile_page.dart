@@ -47,17 +47,17 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: Container(
           child: Column(children: [
             SizedBox(height: AppMargins.M),
-            CircleAvatar(
+            const CircleAvatar(
               backgroundColor: AppColors.DarkGray,
               foregroundColor: Colors.white,
               radius: 50,
               // icon or photo
-              child: const Icon(
+              child: Icon(
                 Icons.person,
                 size: 50,
               ),
