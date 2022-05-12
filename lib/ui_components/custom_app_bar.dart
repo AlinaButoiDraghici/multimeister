@@ -30,7 +30,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ProfilePage(
+                  builder: (context) => const ProfilePage(
                         //check isMeister based on user info
                         isMeister: true,
                       )),
