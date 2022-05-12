@@ -20,9 +20,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // dummy lists for now
   List<Review> reviewList = [
-    Review("Gica", "Tm", "07", 3),
-    Review("Gica", "Tm", "07", 3),
-    Review("Gica", "Tm", "07", 3)
+    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
+    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
+    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3)
   ];
   List<Work> workList = [
     Work(
@@ -60,13 +60,7 @@ class _HomeState extends State<Home> {
                       itemCount: workList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return WorkCard(
-                          name: workList[index].name,
-                          area: workList[index].area,
-                          phone: workList[index].phone,
-                          rating: workList[index].rating,
-                          title: workList[index].title,
-                          label: workList[index].label,
-                          description: workList[index].description,
+                          work: workList[index],
                         );
                       }),
                 ],

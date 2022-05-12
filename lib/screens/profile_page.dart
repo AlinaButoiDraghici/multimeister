@@ -20,9 +20,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   // dummy lists for now
   List<Review> reviewList = [
-    Review("Gica", "Tm", "07", 3),
-    Review("Gica", "Tm", "07", 3),
-    Review("Gica", "Tm", "07", 3)
+    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
+    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
+    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3)
   ];
   List<Work> workList = [
     Work(
@@ -129,7 +129,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           itemCount: reviewList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return ReviewTile(
-                              name: reviewList[index].name,
+                              name: reviewList[index].reviewerName,
                               area: reviewList[index].area,
                               phone: reviewList[index].phone,
                               rating: reviewList[index].rating,
@@ -153,13 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           itemCount: workList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return WorkCard(
-                              name: workList[index].name,
-                              area: workList[index].area,
-                              phone: workList[index].phone,
-                              rating: workList[index].rating,
-                              title: workList[index].title,
-                              label: workList[index].label,
-                              description: workList[index].description,
+                              work: workList[index],
                             );
                           }),
                     ],
