@@ -1,20 +1,26 @@
 import 'dart:ui';
 
 class Work {
+  String uid;
+  //TODO: delete these
   String name;
   String area;
   String phone;
+
   double rating;
-  Image? image;
+  List<Image>? images;
   String title;
   String label;
   String description;
+  String meisterUid;
   Work(
-      {required this.name,
+      {this.uid = "",
+      this.meisterUid = "",
+      required this.name,
       required this.area,
       required this.phone,
       required this.rating,
-      this.image,
+      this.images,
       required this.title,
       required this.label,
       required this.description});
