@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:multimeister/models/review_model.dart';
 import 'package:multimeister/models/work_model.dart';
+import 'package:multimeister/services/auth.dart';
 import 'package:multimeister/ui_components/custom_app_bar.dart';
 import 'package:multimeister/ui_components/custom_button.dart';
 import 'package:multimeister/ui_components/review_tile.dart';
@@ -18,6 +19,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final AuthService _auth = AuthService();
   // dummy lists for now
   List<Review> reviewList = [
     Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
@@ -96,7 +98,14 @@ class _ProfilePageState extends State<ProfilePage> {
             Padding(
               padding: EdgeInsets.all(AppMargins.M),
               child:
-                  CustomButton(onPressed: () {}, text: "Contacteaza/editeaza"),
+                  // added sign out here for now
+                  CustomButton(
+                      onPressed: () async {
+                        await _auth.signOut();
+                        Navigator.popUntil(
+                            context, (Route<dynamic> route) => route.isFirst);
+                      },
+                      text: "Contacteaza/editeaza"),
             ),
             widget.isMeister
                 ? Column(

@@ -1,14 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multimeister/ui_components/custom_app_bar.dart';
-import 'package:multimeister/ui_components/custom_button.dart';
-import 'package:multimeister/ui_components/custom_floating_button.dart';
-import 'package:multimeister/ui_components/custom_textfield.dart';
-import 'package:multimeister/ui_components/review_tile.dart';
 import 'package:multimeister/ui_components/work_card.dart';
-
-import '../models/review_model.dart';
-import '../models/work_model.dart';
+import '../../models/review_model.dart';
+import '../../models/work_model.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
