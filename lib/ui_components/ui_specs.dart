@@ -10,9 +10,11 @@ class AppFontSizes {
   static double M = 16;
   static double L = 18;
   static double XL = 22;
+  static double XXL = 40;
 }
 
 class AppMargins {
+  static double XS = 5;
   static double S = 12;
   static double M = 20;
   static double L = 50;
