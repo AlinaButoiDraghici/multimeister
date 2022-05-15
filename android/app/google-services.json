@@ -29,6 +29,13 @@
             {
               "client_id": "191108466730-b0vbhomesfdctq54846l926ju3lsusu4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "191108466730-1tvf74c6dc1uam694t8hegl0mhvajhag.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.multimeister"
+              }
             }
           ]
         }
