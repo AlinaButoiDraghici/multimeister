@@ -1,49 +1,53 @@
 import 'package:uuid/uuid.dart';
 
-class BaseUser{
+class BaseUser {
   String uid = "";
   String? email;
   String? firstName;
   String? lastName;
-  String? phoneNo;
-  String? address;
+  String? phone;
+  String? city;
   bool? isMeister;
   String? meisterID;
+  String? profilePicture;
 
-  BaseUser({ required this.uid});
-  // BaseUser({ required this.uid, 
-  //   required this.email, 
-  //   required this.firstName, 
-  //   required this.lastName,
-  //   required this.phoneNo,
-  //   this.address,
-  //   required this.isMeister,
-  // }) {
-  //   if(isMeister == true){
-  //     var uuid = Uuid();
+  //BaseUser({required this.uid});
+  BaseUser(
+      {required this.uid,
+      this.email,
+      this.firstName,
+      this.lastName,
+      this.phone,
+      this.city,
+      this.isMeister,
+      this.profilePicture}) {
+    if (isMeister == true) {
+      var uuid = Uuid();
 
-  //     meisterID = uuid.v1();
-  //   }
-  // }
+      meisterID = uuid.v1();
+    }
+  }
 
   Map<String, dynamic> toMap() => {
-    "uid": uid,
-    "email": email,
-    "firstName": firstName,
-    "lastName": lastName,
-    "phoneNo": phoneNo,
-    "address": address,
-    "isMeister": isMeister,
-    "meisterID": meisterID
-  };
+        "uid": uid,
+        "email": email,
+        "firstName": firstName,
+        "lastName": lastName,
+        "phone": phone,
+        "city": city,
+        "profilePicture": profilePicture,
+        "isMeister": isMeister,
+        "meisterID": meisterID
+      };
 
-  BaseUser.fromMap(Map<String, dynamic> map){
+  BaseUser.fromMap(Map<String, dynamic> map) {
     uid = map["uid"];
     email = map["email"];
     firstName = map["firstName"];
     lastName = map["lastName"];
-    phoneNo = map["phoneNo"];
-    address = map["address"];
+    phone = map["phone"];
+    city = map["city"];
+    profilePicture = map["profilePicture"];
     isMeister = map["isMeister"];
     meisterID = map["meisterID"];
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multimeister/services/database.dart';
 import 'package:multimeister/ui_components/custom_app_bar.dart';
 import 'package:multimeister/ui_components/work_card.dart';
 import '../../models/review_model.dart';
@@ -12,6 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  DatabaseService databaseService = DatabaseService();
   // dummy lists for now
   List<Review> reviewList = [
     Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
@@ -41,7 +43,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(showSearch: true),
+      appBar: const CustomAppBar(showSearch: true),
       body: SingleChildScrollView(
         child: Container(
             color: Colors.white,
@@ -49,7 +51,7 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: [
                   ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: workList.length,
                       itemBuilder: (BuildContext context, int index) {
