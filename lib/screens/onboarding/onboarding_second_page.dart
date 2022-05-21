@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../constants/string_constants.dart';
 import '../../models/base_user.dart';
+import '../../services/hive.dart';
 import '../../ui_components/custom_floating_button.dart';
 import '../../ui_components/ui_specs.dart';
 import '../home/home.dart';
@@ -50,6 +51,7 @@ class _OnboardingSecondPageState extends State<OnboardingSecondPage> {
               DatabaseService databaseService = DatabaseService();
               String result = await databaseService.addUser(user);
               if (result.contains("success")) {
+                HiveServices().addUserToBox(user);
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => Home()));
               } else {

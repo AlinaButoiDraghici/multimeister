@@ -8,7 +8,7 @@ class Work {
   String phone;
 
   double rating;
-  List<Image>? images;
+  List<String>? images;
   String title;
   String label;
   String description;

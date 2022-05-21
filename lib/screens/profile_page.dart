@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:multimeister/models/review_model.dart';
 import 'package:multimeister/models/work_model.dart';
 import 'package:multimeister/services/auth.dart';
+import 'package:multimeister/services/hive.dart';
 import 'package:multimeister/ui_components/custom_app_bar.dart';
 import 'package:multimeister/ui_components/custom_button.dart';
 import 'package:multimeister/ui_components/review_tile.dart';
@@ -101,6 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   // added sign out here for now
                   CustomButton(
                       onPressed: () async {
+                        await HiveServices().removeUserFromBox();
                         await _auth.signOut();
                         Navigator.popUntil(
                             context, (Route<dynamic> route) => route.isFirst);
