@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:multimeister/models/work_model.dart';
 import 'package:multimeister/ui_components/custom_carousel_slider.dart';
-
+import 'package:uuid/uuid.dart';
+import './home/home.dart';
 import '../constants/string_constants.dart';
+import '../services/database.dart';
+import '../services/hive.dart';
 import '../ui_components/custom_floating_button.dart';
 import '../ui_components/custom_textfield.dart';
 import '../ui_components/ui_specs.dart';
@@ -25,7 +30,36 @@ class _AddWorkItemPageState extends State<AddWorkItemPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: CustomFloatingButton(
-        onPressed: () {},
+        onPressed: () async {
+          if (_workTitleFormKey.currentState!.validate() &&
+              _workTypeFormKey.currentState!.validate() &&
+              _priceFormKey.currentState!.validate()) {
+            final hiveUser = HiveServices().getUserData();
+            DatabaseService databaseService = DatabaseService();
+            //does not add images or description for now
+            var uuid = Uuid();
+            Work work = Work(
+                uid: uuid.v1(),
+                meisterName: (hiveUser!.firstName ?? "") +
+                    " " +
+                    (hiveUser.lastName ?? ""),
+                meisterPhone: hiveUser.phone ?? "",
+                meisterCity: hiveUser.city ?? "",
+                meisterUid: hiveUser.meisterID!,
+                title: _workTitleController.text,
+                label: _workTypeController.text,
+                price: double.parse(_priceController.text),
+                description: "");
+            String result = await databaseService.addWork(work);
+            if (result.contains("success")) {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Home()));
+            } else {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(result)));
+            }
+          }
+        },
         icon: Icons.check,
       ),
       body: Center(
@@ -79,16 +113,20 @@ class _AddWorkItemPageState extends State<AddWorkItemPage> {
               child: Form(
                 key: _priceFormKey,
                 child: CustomTextField(
-                  label: StringConstants.priceString,
-                  validator: (val) {
-                    if (val == null || val.trim().isEmpty) {
-                      return StringConstants.emptyFormString;
-                    }
-                    return null;
-                  },
-                  controller: _priceController,
-                  icon: Icons.euro,
-                ),
+                    label: StringConstants.priceString,
+                    validator: (val) {
+                      if (val == null || val.trim().isEmpty) {
+                        return StringConstants.emptyFormString;
+                      }
+                      return null;
+                    },
+                    controller: _priceController,
+                    icon: Icons.euro,
+                    keyboardType:
+                        TextInputType.numberWithOptions(decimal: true),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                    ]),
               ),
             ),
             SizedBox(height: AppMargins.S),
@@ -97,7 +135,9 @@ class _AddWorkItemPageState extends State<AddWorkItemPage> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 40),
                 child: CustomFloatingButton(
+                  heroTag: "addPhoto",
                   icon: Icons.add_a_photo,
+                  //TODO: implement add photo logic
                   onPressed: () {},
                 ),
               ),

@@ -20,23 +20,29 @@ class _HomeState extends State<Home> {
     Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
     Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3)
   ];
-  List<Work> workList = [
+  List<Work> workListDummy = [
     Work(
-        name: "Gigel Ion",
-        area: "Timisoara",
-        phone: "+40",
+        meisterName: "Gigel Ion",
+        meisterCity: "Timisoara",
+        meisterPhone: "+40",
         rating: 3,
+        meisterUid: "",
+        uid: "",
         title: "Mese lucrate manual",
         label: "Tamplarie",
+        price: 0,
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
     Work(
-        name: "Gigel Ion",
-        area: "Timisoara",
-        phone: "+40",
+        meisterName: "Gigel Ion",
+        meisterCity: "Timisoara",
+        meisterPhone: "+40",
         rating: 3,
+        meisterUid: "",
+        uid: "",
         title: "Mese lucrate manual",
         label: "Tamplarie",
+        price: 0,
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
   ];
@@ -44,24 +50,67 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(showSearch: true),
-      body: SingleChildScrollView(
-        child: Container(
-            color: Colors.white,
-            child: Center(
-              child: Column(
-                children: [
-                  ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: workList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return WorkCard(
-                          work: workList[index],
-                        );
-                      }),
-                ],
+      body: FutureBuilder(
+        future: databaseService.getAllWorks(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.hasError) {
+            return Container(
+              color: Colors.white,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.error_outline,
+                      color: Colors.red,
+                      size: 100,
+                    ),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.all(40),
+                      child: Text(
+                        'Error: ${snapshot.error}',
+                        style: const TextStyle(fontSize: 18, color: Colors.red),
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                  ],
+                ),
               ),
-            )),
+            );
+          } else if (snapshot.hasData) {
+            List<Work> workItemList = snapshot.data;
+            return SingleChildScrollView(
+                child: Container(
+                    color: Colors.white,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: workItemList.length,
+                              itemBuilder: (context, int index) {
+                                return WorkCard(
+                                  work: workItemList[index],
+                                );
+                              }),
+                        ],
+                      ),
+                    )));
+          } else {
+            return Container(
+              color: Colors.white,
+              child: const Center(
+                child: SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }
