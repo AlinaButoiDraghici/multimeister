@@ -29,19 +29,25 @@ class _ProfilePageState extends State<ProfilePage> {
   ];
   List<Work> workList = [
     Work(
-        name: "Gigel Ion",
-        area: "Timisoara",
-        phone: "+40",
+        meisterName: "Gigel Ion",
+        meisterCity: "Timisoara",
+        meisterPhone: "+40",
         rating: 3,
+        price: 0,
         title: "Mese lucrate manual",
+        meisterUid: "",
+        uid: "",
         label: "Tamplarie",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
     Work(
-        name: "Gigel Ion",
-        area: "Timisoara",
-        phone: "+40",
+        meisterName: "Gigel Ion",
+        meisterCity: "Timisoara",
+        meisterPhone: "+40",
+        meisterUid: "",
+        uid: "",
         rating: 3,
+        price: 0,
         title: "Mese lucrate manual",
         label: "Tamplarie",
         description:
