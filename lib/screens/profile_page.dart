@@ -15,7 +15,6 @@ import 'package:multimeister/ui_components/ui_specs.dart';
 import 'package:multimeister/ui_components/work_card.dart';
 
 class ProfilePage extends StatefulWidget {
-  //final bool isMeister;
   final HiveUser user;
   const ProfilePage({Key? key, required this.user}) : super(key: key);
 
