@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multimeister/screens/profile_page.dart';
+import 'package:multimeister/services/hive.dart';
 import 'package:multimeister/ui_components/ui_specs.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -27,12 +28,12 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       actions: [
         ElevatedButton(
           onPressed: () {
+            final hiveUser = HiveServices().getUserData();
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const ProfilePage(
-                        //check isMeister based on user info
-                        isMeister: true,
+                  builder: (context) => ProfilePage(
+                        user: hiveUser!,
                       )),
             );
           },

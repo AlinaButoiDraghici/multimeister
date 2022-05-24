@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:multimeister/models/hive_user.dart';
 import 'package:multimeister/models/review_model.dart';
 import 'package:multimeister/models/work_model.dart';
+import 'package:multimeister/screens/add_work_item_page.dart';
+import 'package:multimeister/screens/edit_profile.dart';
 import 'package:multimeister/services/auth.dart';
 import 'package:multimeister/services/hive.dart';
 import 'package:multimeister/ui_components/custom_app_bar.dart';
@@ -12,8 +15,9 @@ import 'package:multimeister/ui_components/ui_specs.dart';
 import 'package:multimeister/ui_components/work_card.dart';
 
 class ProfilePage extends StatefulWidget {
-  final bool isMeister;
-  const ProfilePage({Key? key, required this.isMeister}) : super(key: key);
+  //final bool isMeister;
+  final HiveUser user;
+  const ProfilePage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -21,6 +25,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final AuthService _auth = AuthService();
+  final loggedUser = HiveServices().getUserData();
   // dummy lists for now
   List<Review> reviewList = [
     Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
@@ -75,7 +80,9 @@ class _ProfilePageState extends State<ProfilePage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: AppMargins.S),
               child: Text(
-                "NAME",
+                (widget.user.firstName ?? "") +
+                    " " +
+                    (widget.user.lastName ?? ""),
                 style: TextStyle(
                     fontSize: AppFontSizes.XXL, fontWeight: FontWeight.bold),
               ),
@@ -83,7 +90,8 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(height: AppMargins.XS),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: AppMargins.S),
-              child: Text("client/master",
+              child: Text(
+                  (widget.user.isMeister ?? false) ? "Meister" : "Client",
                   style: TextStyle(fontSize: AppFontSizes.XL)),
             ),
             SizedBox(height: AppMargins.XS),
@@ -92,30 +100,64 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: AppMargins.S),
-                  child:
-                      Text("+40", style: TextStyle(fontSize: AppFontSizes.S)),
+                  child: Text((widget.user.phone ?? ""),
+                      style: TextStyle(fontSize: AppFontSizes.S)),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: AppMargins.S),
-                  child:
-                      Text("area", style: TextStyle(fontSize: AppFontSizes.S)),
+                  child: Text((widget.user.city ?? ""),
+                      style: TextStyle(fontSize: AppFontSizes.S)),
                 )
               ],
             ),
+            widget.user.uid == loggedUser!.uid
+                ? Padding(
+                    padding: EdgeInsets.all(AppMargins.M),
+                    child:
+                        // added sign out here for now
+                        CustomButton(
+                            isPrimary: false,
+                            onPressed: () async {
+                              await HiveServices().removeUserFromBox();
+                              await _auth.signOut();
+                              Navigator.popUntil(context,
+                                  (Route<dynamic> route) => route.isFirst);
+                            },
+                            text: "Iesi din cont"),
+                  )
+                : Container(),
             Padding(
-              padding: EdgeInsets.all(AppMargins.M),
-              child:
-                  // added sign out here for now
-                  CustomButton(
-                      onPressed: () async {
-                        await HiveServices().removeUserFromBox();
-                        await _auth.signOut();
-                        Navigator.popUntil(
-                            context, (Route<dynamic> route) => route.isFirst);
-                      },
-                      text: "Contacteaza/editeaza"),
-            ),
-            widget.isMeister
+                padding: EdgeInsets.all(AppMargins.M),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    widget.user.uid == loggedUser!.uid
+                        ? CustomButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditProfile()));
+                            },
+                            text: "Editeaza profilul")
+                        : CustomButton(onPressed: () {}, text: "Contacteaza"),
+                    Visibility(
+                      visible: (widget.user.isMeister ?? false),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: AppMargins.M),
+                        child: CustomButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AddWorkItemPage()));
+                            },
+                            text: "Adauga lucrare"),
+                      ),
+                    ),
+                  ],
+                )),
+            (widget.user.isMeister ?? false)
                 ? Column(
                     children: [
                       RatingBar.builder(
