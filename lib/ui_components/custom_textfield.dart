@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatefulWidget {
   final String label;
@@ -7,6 +8,9 @@ class CustomTextField extends StatefulWidget {
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
+  final String? initialValue;
   const CustomTextField(
       {Key? key,
       required this.label,
@@ -14,7 +18,10 @@ class CustomTextField extends StatefulWidget {
       this.isPassword = false,
       this.onChanged,
       this.validator,
-      this.controller})
+      this.controller,
+      this.inputFormatters,
+      this.keyboardType,
+      this.initialValue})
       : super(key: key);
 
   @override
@@ -38,7 +45,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
         obscureText: widget.isPassword,
         onChanged: widget.onChanged,
         validator: widget.validator,
+        inputFormatters: widget.inputFormatters,
+        keyboardType: widget.keyboardType,
         controller: widget.controller,
+        initialValue: widget.initialValue,
       ),
     );
   }

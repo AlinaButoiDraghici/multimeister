@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:multimeister/models/meister_model.dart';
+import 'package:multimeister/screens/add_work_item_page.dart';
 import 'package:multimeister/services/database.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/string_constants.dart';
 import '../../models/base_user.dart';
+import '../../services/hive.dart';
 import '../../ui_components/custom_floating_button.dart';
 import '../../ui_components/ui_specs.dart';
 import '../home/home.dart';
@@ -48,14 +51,29 @@ class _OnboardingSecondPageState extends State<OnboardingSecondPage> {
                   isMeister: _isMeister,
                   city: widget.city);
               DatabaseService databaseService = DatabaseService();
-              String result = await databaseService.addUser(user);
-              if (result.contains("success")) {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
+              String resultUser = await databaseService.addUser(user);
+              String resultMeister = "success";
+              if (_isMeister ?? false) {
+                Meister meister =
+                    Meister(uid: user.meisterID!, userID: user.uid);
+                resultMeister = await databaseService.addMeister(meister);
+              }
+              if (resultUser.contains("success") &&
+                  resultMeister.contains("success")) {
+                HiveServices().addUserToBox(user);
+                if (_isMeister ?? false) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AddWorkItemPage()));
+                } else {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Home()));
+                }
               } else {
-                if (!result.contains("succes")) {
+                if (!resultUser.contains("succes")) {
                   ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(result)));
+                      .showSnackBar(SnackBar(content: Text(resultUser)));
                 }
               }
             }

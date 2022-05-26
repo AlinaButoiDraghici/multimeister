@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:multimeister/screens/work_announcement_page.dart';
@@ -36,7 +35,7 @@ class _WorkCardState extends State<WorkCard> {
             shadowColor: AppColors.DarkGray,
             elevation: 3,
             shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.grey, width: 0.5),
+              side: const BorderSide(color: Colors.grey, width: 0.5),
               borderRadius: BorderRadius.circular(10),
             ),
             child:
@@ -50,7 +49,7 @@ class _WorkCardState extends State<WorkCard> {
                         //TODO: add profile photo if it exists
                         backgroundColor: AppColors.Yellow,
                         foregroundColor: Colors.white,
-                        child: Text(widget.work.name[0]),
+                        child: Text(widget.work.meisterName[0]),
                       ),
                     ),
                     Padding(
@@ -59,16 +58,16 @@ class _WorkCardState extends State<WorkCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.work.name,
+                            widget.work.meisterName,
                             style: TextStyle(
                                 fontSize: AppFontSizes.M, color: Colors.black),
                           ),
-                          SizedBox(height: 5),
-                          Text(widget.work.area,
+                          const SizedBox(height: 5),
+                          Text(widget.work.meisterCity,
                               style: TextStyle(
                                   fontSize: AppFontSizes.M,
                                   color: Colors.grey)),
-                          Text(widget.work.phone,
+                          Text(widget.work.meisterPhone,
                               style: TextStyle(
                                   fontSize: AppFontSizes.M, color: Colors.grey))
                         ],
@@ -84,7 +83,7 @@ class _WorkCardState extends State<WorkCard> {
                   child: RatingBar.builder(
                       itemCount: 5,
                       itemSize: 25,
-                      initialRating: widget.work.rating,
+                      initialRating: widget.work.rating ?? 0,
                       ignoreGestures: true,
                       itemBuilder: (context, _) => const Icon(
                             Icons.star,

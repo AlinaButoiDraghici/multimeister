@@ -10,7 +10,7 @@ class StringConstants {
   static const String firstNameString = "Prenume";
   static const String phoneString = "Telefon";
   static const String cityString = "Localitate";
-  static const String addWorkItemString = "Adauga o lucrare";
+  static const String addWorkItemString = "Adauga lucrare";
   static const String meisterString = "Sunt meister";
   static const String clientString = "Caut meister";
   static const String onboardingInfoTitle = "Ajuta-ne cu cateva informatii";
@@ -20,4 +20,8 @@ class StringConstants {
   static const String validConfirmPasswordString =
       "Confirmati parola introdusa";
   static const String emptyFormString = "Toate campurile sunt obligatorii";
+  static const String priceString = "Pret";
+  static const String workTypeString = "Tip lucrare";
+  static const String workTitleString = "Nume lucrare";
+  static const String addAnotherWorkItemString = "+ Adauga alta lucrare";
 }
