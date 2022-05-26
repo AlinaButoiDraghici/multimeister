@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:multimeister/models/base_user.dart';
-import 'package:multimeister/screens/add_work_item_page.dart';
 import 'package:multimeister/screens/home/home_wrapper.dart';
 import 'package:multimeister/services/hive.dart';
 import 'firebase_options.dart';

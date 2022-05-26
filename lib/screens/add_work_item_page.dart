@@ -123,7 +123,7 @@ class _AddWorkItemPageState extends State<AddWorkItemPage> {
                     controller: _priceController,
                     icon: Icons.euro,
                     keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
+                        const TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
                     ]),
@@ -133,7 +133,7 @@ class _AddWorkItemPageState extends State<AddWorkItemPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: CustomFloatingButton(
                   heroTag: "addPhoto",
                   icon: Icons.add_a_photo,

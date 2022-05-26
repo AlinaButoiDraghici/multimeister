@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:multimeister/screens/work_announcement_page.dart';
@@ -36,7 +35,7 @@ class _WorkCardState extends State<WorkCard> {
             shadowColor: AppColors.DarkGray,
             elevation: 3,
             shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.grey, width: 0.5),
+              side: const BorderSide(color: Colors.grey, width: 0.5),
               borderRadius: BorderRadius.circular(10),
             ),
             child:
@@ -63,7 +62,7 @@ class _WorkCardState extends State<WorkCard> {
                             style: TextStyle(
                                 fontSize: AppFontSizes.M, color: Colors.black),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Text(widget.work.meisterCity,
                               style: TextStyle(
                                   fontSize: AppFontSizes.M,
