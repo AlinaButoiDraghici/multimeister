@@ -10,6 +10,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
+  final String? initialValue;
   const CustomTextField(
       {Key? key,
       required this.label,
@@ -19,7 +20,8 @@ class CustomTextField extends StatefulWidget {
       this.validator,
       this.controller,
       this.inputFormatters,
-      this.keyboardType})
+      this.keyboardType,
+      this.initialValue})
       : super(key: key);
 
   @override
@@ -46,6 +48,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         inputFormatters: widget.inputFormatters,
         keyboardType: widget.keyboardType,
         controller: widget.controller,
+        initialValue: widget.initialValue,
       ),
     );
   }

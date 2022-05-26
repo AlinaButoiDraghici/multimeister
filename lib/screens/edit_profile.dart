@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:multimeister/models/hive_user.dart';
+import 'package:multimeister/services/hive.dart';
 import 'package:multimeister/ui_components/custom_button.dart';
 import 'package:multimeister/ui_components/custom_textfield.dart';
 
@@ -13,6 +15,7 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  final HiveUser loggedUser = HiveServices().getUserData()!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,17 +58,25 @@ class _EditProfileState extends State<EditProfile> {
               ],
             ),
             SizedBox(height: AppMargins.L),
-            CustomTextField(label: "Nume"),
+            CustomTextField(
+              label: "Prenume",
+              initialValue: loggedUser.firstName,
+            ),
             SizedBox(height: AppMargins.M),
-            CustomTextField(label: "Prenume"),
+            CustomTextField(
+              label: "Nume",
+              initialValue: loggedUser.lastName,
+            ),
             SizedBox(height: AppMargins.M),
             CustomTextField(
               label: "Telefon",
+              initialValue: loggedUser.phone,
               icon: Icons.phone,
             ),
             SizedBox(height: AppMargins.M),
             CustomTextField(
               label: "Localitate",
+              initialValue: loggedUser.city,
               icon: Icons.location_city,
             ),
             SizedBox(height: AppMargins.M),
