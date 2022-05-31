@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:multimeister/screens/home/home.dart';
 import 'package:multimeister/screens/profile_page.dart';
 import 'package:multimeister/services/hive.dart';
 import 'package:multimeister/ui_components/ui_specs.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-  final bool showSearch;
-  const CustomAppBar({Key? key, this.showSearch = false}) : super(key: key);
+  final bool showHome;
+  const CustomAppBar({Key? key, this.showHome = true}) : super(key: key);
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
@@ -16,13 +17,18 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       backgroundColor: AppColors.Yellow,
       toolbarHeight: 50,
-      leading: showSearch
+      leading: showHome
           ? IconButton(
               icon: const Icon(
-                Icons.search,
+                Icons.home,
                 size: 24,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home()),
+                );
+              },
             )
           : Container(),
       actions: [

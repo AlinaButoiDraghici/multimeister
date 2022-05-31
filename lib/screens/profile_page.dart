@@ -24,7 +24,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final AuthService _auth = AuthService();
-  final loggedUser = HiveServices().getUserData();
+  HiveUser? loggedUser = HiveServices().getUserData();
+
   // dummy lists for now
   List<Review> reviewList = [
     Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
@@ -57,6 +58,13 @@ class _ProfilePageState extends State<ProfilePage> {
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    loggedUser = HiveServices().getUserData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,9 +142,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         ? CustomButton(
                             onPressed: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => EditProfile()));
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => EditProfile()))
+                                  .then((value) => setState(() {}));
                             },
                             text: "Editeaza profilul")
                         : CustomButton(onPressed: () {}, text: "Contacteaza"),
