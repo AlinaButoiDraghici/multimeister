@@ -25,43 +25,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final AuthService _auth = AuthService();
-  final loggedUser = HiveServices().getUserData();
+  final HiveUser? loggedUser = HiveServices().getUserData();
   final DatabaseService databaseService = DatabaseService();
 
-  // dummy lists for now
-  // List<Review> reviewList = [
-  //   Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
-  //   Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
-  //   Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3)
-  // ];
-  // List<Work> workList = [
-  //   Work(
-  //       meisterName: "Gigel Ion",
-  //       meisterCity: "Timisoara",
-  //       meisterPhone: "+40",
-  //       rating: 3,
-  //       price: 0,
-  //       title: "Mese lucrate manual",
-  //       meisterUid: "",
-  //       uid: "",
-  //       reviewList: List.empty(),
-  //       label: "Tamplarie",
-  //       description:
-  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
-  //   Work(
-  //       meisterName: "Gigel Ion",
-  //       meisterCity: "Timisoara",
-  //       meisterPhone: "+40",
-  //       meisterUid: "",
-  //       reviewList: List.empty(),
-  //       uid: "",
-  //       rating: 3,
-  //       price: 0,
-  //       title: "Mese lucrate manual",
-  //       label: "Tamplarie",
-  //       description:
-  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
