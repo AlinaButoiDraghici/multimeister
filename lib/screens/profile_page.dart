@@ -164,40 +164,45 @@ class _ProfilePageState extends State<ProfilePage> {
             (widget.user.isMeister ?? false)
                 ? Column(
                     children: [
-                      RatingBar.builder(
-                          itemCount: 5,
-                          itemSize: 40,
-                          initialRating: 3, //rating ?? 0
-                          ignoreGestures: true,
-                          itemBuilder: (context, _) => const Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                          onRatingUpdate: (rating) {}),
-                      // Align(
-                      //   alignment: Alignment.centerLeft,
-                      //   child: Padding(
-                      //     padding: EdgeInsets.all(AppMargins.S),
-                      //     child: Text(
-                      //       "Recenzii",
-                      //       style: TextStyle(
-                      //           fontSize: AppFontSizes.XL,
-                      //           fontWeight: FontWeight.bold),
-                      //     ),
-                      //   ),
-                      // ),
-                      // ListView.builder(
-                      //     physics: NeverScrollableScrollPhysics(),
-                      //     shrinkWrap: true,
-                      //     itemCount: reviewList.length,
-                      //     itemBuilder: (BuildContext context, int index) {
-                      //       return ReviewTile(
-                      //         name: reviewList[index].reviewerName,
-                      //         area: reviewList[index].area,
-                      //         phone: reviewList[index].phone,
-                      //         rating: reviewList[index].rating,
-                      //       );
-                      //     }),
+                      FutureBuilder(
+                        future: databaseService.getMeisterScore(widget.user.meisterID),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData){
+                            double? rating = snapshot.data as double?;
+                            return Column(
+                              children: [
+                                SizedBox(height:10),
+                                Text("Rating meister: " + rating!.toStringAsFixed(2) + "/5",
+                                  style: TextStyle(
+                                      fontSize: AppFontSizes.XL, color: Colors.black)),
+                                SizedBox(height:10),
+                                RatingBar.builder(
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 40,
+                                    initialRating: rating ?? 0,
+                                    ignoreGestures: true,
+                                    itemBuilder: (context, _) => const Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                    onRatingUpdate: (rating) {}),
+                              ],
+                            );
+                          }
+                          return RatingBar.builder(
+                                itemCount: 5,
+                                itemSize: 40,
+                                initialRating: 0,
+                                ignoreGestures: true,
+                                itemBuilder: (context, _) => const Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                onRatingUpdate: (rating) {}
+                              );
+                        }
+                      ),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
@@ -215,16 +220,16 @@ class _ProfilePageState extends State<ProfilePage> {
                         builder: ((context, snapshot) {
                         if (snapshot.hasData){
                           List<Work>? workList = snapshot.data as List<Work>?;
-                          if (workList!.isNotEmpty){
-                            return ListView.builder(
-                              itemCount: workList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                              return WorkCard(
-                                  work: workList[index],
-                                );
-                              }
-                            );
-                          }
+                          return ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: workList!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                            return WorkCard(
+                                work: workList[index],
+                              );
+                            }
+                          );
                         }
                         return Padding(
                           padding: const EdgeInsets.all(15.0),

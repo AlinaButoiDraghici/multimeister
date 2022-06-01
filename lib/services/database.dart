@@ -78,7 +78,7 @@ class DatabaseService {
 
   Future<List<Work>> getMeisterWorks(meisterID) async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await workItemCollection.where("workItemUid", isEqualTo: meisterID).get();
+        await workItemCollection.where("meisterUid", isEqualTo: meisterID).get();
     final workList = querySnapshot.docs
         .map((doc) => _fromDocumentSnapshotToWork(doc))
         .toList();

@@ -53,7 +53,7 @@ class _WorkAnnouncementPageState extends State<WorkAnnouncementPage> {
           padding: EdgeInsets.symmetric(horizontal: AppMargins.S),
           child: Text("Tamplarie", style: TextStyle(fontSize: AppFontSizes.XL)),
         ),
-        SizedBox(height: AppMargins.M),
+        // SizedBox(height: AppMargins.M),
         Padding(
           padding: EdgeInsets.symmetric(
               vertical: AppMargins.M, horizontal: AppMargins.S),
@@ -83,12 +83,16 @@ class _WorkAnnouncementPageState extends State<WorkAnnouncementPage> {
                 Text(widget.work.meisterCity,
                     style: TextStyle(
                         fontSize: AppFontSizes.L, color: Colors.grey)),
-
+                SizedBox(height: 30),
+                Text("Rating lucrare: " + widget.work.rating!.toStringAsFixed(2) + "/5",
+                    style: TextStyle(
+                        fontSize: AppFontSizes.XL, color: Colors.black)),
                 Padding(
                     padding: EdgeInsets.all(AppMargins.S),
                     child: RatingBar.builder(
+                        allowHalfRating: true,
                         itemCount: 5,
-                        itemSize: 40,
+                        itemSize: 30,
                         initialRating: widget.work.rating ?? 0,
                         ignoreGestures: true,
                         itemBuilder: (context, _) => const Icon(
