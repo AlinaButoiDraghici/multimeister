@@ -28,6 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final HiveUser? loggedUser = HiveServices().getUserData();
   final DatabaseService databaseService = DatabaseService();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,9 +106,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         ? CustomButton(
                             onPressed: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => EditProfile()));
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => EditProfile()))
+                                  .then((value) => setState(() {}));
                             },
                             text: "Editeaza profilul")
                         : CustomButton(onPressed: () {}, text: "Contacteaza"),

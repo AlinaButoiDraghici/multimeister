@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(showSearch: true),
+      appBar: const CustomAppBar(showHome: false),
       body: FutureBuilder(
         future: databaseService.getAllWorks(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
