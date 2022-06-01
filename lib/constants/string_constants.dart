@@ -24,4 +24,6 @@ class StringConstants {
   static const String workTypeString = "Tip lucrare";
   static const String workTitleString = "Nume lucrare";
   static const String addAnotherWorkItemString = "+ Adauga alta lucrare";
+
+  static var reviewString;
 }

@@ -1,12 +1,10 @@
-import 'package:multimeister/models/review_model.dart';
-import 'package:multimeister/models/work_model.dart';
-
 class Meister {
   String uid = "";
   String userID = "";
-  //lists containing work and review uids
+  double rating = 0;
+  //lists containing work uids
   List<String> workList = List.empty();
-  List<String> reviewList = List.empty();
+
   Meister({
     required this.uid,
     required this.userID,
@@ -15,14 +13,14 @@ class Meister {
   Map<String, dynamic> toMap() => {
         "uid": uid,
         "userID": userID,
+        "rating": rating,
         "workList": workList,
-        "reviewList": reviewList,
       };
 
   Meister.fromMap(Map<String, dynamic> map) {
     uid = map["uid"];
     userID = map["userID"];
+    rating = map["rating"];
     workList = map["workList"];
-    reviewList = map["reviewList"];
   }
 }

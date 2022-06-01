@@ -7,6 +7,7 @@ import 'package:multimeister/models/work_model.dart';
 import 'package:multimeister/screens/add_work_item_page.dart';
 import 'package:multimeister/screens/edit_profile.dart';
 import 'package:multimeister/services/auth.dart';
+import 'package:multimeister/services/database.dart';
 import 'package:multimeister/services/hive.dart';
 import 'package:multimeister/ui_components/custom_app_bar.dart';
 import 'package:multimeister/ui_components/custom_button.dart';
@@ -25,38 +26,42 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final AuthService _auth = AuthService();
   final loggedUser = HiveServices().getUserData();
+  final DatabaseService databaseService = DatabaseService();
+
   // dummy lists for now
-  List<Review> reviewList = [
-    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
-    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
-    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3)
-  ];
-  List<Work> workList = [
-    Work(
-        meisterName: "Gigel Ion",
-        meisterCity: "Timisoara",
-        meisterPhone: "+40",
-        rating: 3,
-        price: 0,
-        title: "Mese lucrate manual",
-        meisterUid: "",
-        uid: "",
-        label: "Tamplarie",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
-    Work(
-        meisterName: "Gigel Ion",
-        meisterCity: "Timisoara",
-        meisterPhone: "+40",
-        meisterUid: "",
-        uid: "",
-        rating: 3,
-        price: 0,
-        title: "Mese lucrate manual",
-        label: "Tamplarie",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-  ];
+  // List<Review> reviewList = [
+  //   Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
+  //   Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
+  //   Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3)
+  // ];
+  // List<Work> workList = [
+  //   Work(
+  //       meisterName: "Gigel Ion",
+  //       meisterCity: "Timisoara",
+  //       meisterPhone: "+40",
+  //       rating: 3,
+  //       price: 0,
+  //       title: "Mese lucrate manual",
+  //       meisterUid: "",
+  //       uid: "",
+  //       reviewList: List.empty(),
+  //       label: "Tamplarie",
+  //       description:
+  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
+  //   Work(
+  //       meisterName: "Gigel Ion",
+  //       meisterCity: "Timisoara",
+  //       meisterPhone: "+40",
+  //       meisterUid: "",
+  //       reviewList: List.empty(),
+  //       uid: "",
+  //       rating: 3,
+  //       price: 0,
+  //       title: "Mese lucrate manual",
+  //       label: "Tamplarie",
+  //       description:
+  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,30 +174,30 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: Colors.amber,
                               ),
                           onRatingUpdate: (rating) {}),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.all(AppMargins.S),
-                          child: Text(
-                            "Recenzii",
-                            style: TextStyle(
-                                fontSize: AppFontSizes.XL,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: reviewList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return ReviewTile(
-                              name: reviewList[index].reviewerName,
-                              area: reviewList[index].area,
-                              phone: reviewList[index].phone,
-                              rating: reviewList[index].rating,
-                            );
-                          }),
+                      // Align(
+                      //   alignment: Alignment.centerLeft,
+                      //   child: Padding(
+                      //     padding: EdgeInsets.all(AppMargins.S),
+                      //     child: Text(
+                      //       "Recenzii",
+                      //       style: TextStyle(
+                      //           fontSize: AppFontSizes.XL,
+                      //           fontWeight: FontWeight.bold),
+                      //     ),
+                      //   ),
+                      // ),
+                      // ListView.builder(
+                      //     physics: NeverScrollableScrollPhysics(),
+                      //     shrinkWrap: true,
+                      //     itemCount: reviewList.length,
+                      //     itemBuilder: (BuildContext context, int index) {
+                      //       return ReviewTile(
+                      //         name: reviewList[index].reviewerName,
+                      //         area: reviewList[index].area,
+                      //         phone: reviewList[index].phone,
+                      //         rating: reviewList[index].rating,
+                      //       );
+                      //     }),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
@@ -205,15 +210,30 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: workList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return WorkCard(
-                              work: workList[index],
+                      FutureBuilder(
+                        future: databaseService.getMeisterWorks(widget.user.meisterID),
+                        builder: ((context, snapshot) {
+                        if (snapshot.hasData){
+                          List<Work>? workList = snapshot.data as List<Work>?;
+                          if (workList!.isNotEmpty){
+                            return ListView.builder(
+                              itemCount: workList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                              return WorkCard(
+                                  work: workList[index],
+                                );
+                              }
                             );
-                          }),
+                          }
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Text("Aceast meserias nu are nici o lucrare",
+                              style: TextStyle(
+                                fontSize: AppFontSizes.L,
+                                color: Colors.black)),
+                        );
+                      })),
                     ],
                   )
                 : Container(),
