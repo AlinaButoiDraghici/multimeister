@@ -146,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     allowHalfRating: true,
                                     itemCount: 5,
                                     itemSize: 40,
-                                    initialRating: rating ?? 0,
+                                    initialRating: rating,
                                     ignoreGestures: true,
                                     itemBuilder: (context, _) => const Icon(
                                           Icons.star,
