@@ -15,37 +15,39 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   DatabaseService databaseService = DatabaseService();
   // dummy lists for now
-  List<Review> reviewList = [
-    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
-    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
-    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3)
-  ];
-  List<Work> workListDummy = [
-    Work(
-        meisterName: "Gigel Ion",
-        meisterCity: "Timisoara",
-        meisterPhone: "+40",
-        rating: 3,
-        meisterUid: "",
-        uid: "",
-        title: "Mese lucrate manual",
-        label: "Tamplarie",
-        price: 0,
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
-    Work(
-        meisterName: "Gigel Ion",
-        meisterCity: "Timisoara",
-        meisterPhone: "+40",
-        rating: 3,
-        meisterUid: "",
-        uid: "",
-        title: "Mese lucrate manual",
-        label: "Tamplarie",
-        price: 0,
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-  ];
+  // List<Review> reviewList = [
+  //   Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
+  //   Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
+  //   Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3)
+  // ];
+  // List<Work> workListDummy = [
+  //   Work(
+  //       meisterName: "Gigel Ion",
+  //       meisterCity: "Timisoara",
+  //       meisterPhone: "+40",
+  //       rating: 3,
+  //       reviewList: List.empty(),
+  //       meisterUid: "",
+  //       uid: "",
+  //       title: "Mese lucrate manual",
+  //       label: "Tamplarie",
+  //       price: 0,
+  //       description:
+  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
+  //   Work(
+  //       meisterName: "Gigel Ion",
+  //       meisterCity: "Timisoara",
+  //       meisterPhone: "+40",
+  //       rating: 3,
+  //       reviewList: List.empty(),
+  //       meisterUid: "",
+  //       uid: "",
+  //       title: "Mese lucrate manual",
+  //       label: "Tamplarie",
+  //       price: 0,
+  //       description:
+  //           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

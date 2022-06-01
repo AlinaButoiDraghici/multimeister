@@ -7,6 +7,7 @@ import 'package:multimeister/models/work_model.dart';
 import 'package:multimeister/screens/add_work_item_page.dart';
 import 'package:multimeister/screens/edit_profile.dart';
 import 'package:multimeister/services/auth.dart';
+import 'package:multimeister/services/database.dart';
 import 'package:multimeister/services/hive.dart';
 import 'package:multimeister/ui_components/custom_app_bar.dart';
 import 'package:multimeister/ui_components/custom_button.dart';
@@ -24,46 +25,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final AuthService _auth = AuthService();
-  HiveUser? loggedUser = HiveServices().getUserData();
+  final HiveUser? loggedUser = HiveServices().getUserData();
+  final DatabaseService databaseService = DatabaseService();
 
-  // dummy lists for now
-  List<Review> reviewList = [
-    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
-    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3),
-    Review(reviewerName: "Gica", area: "Tm", phone: "07", rating: 3)
-  ];
-  List<Work> workList = [
-    Work(
-        meisterName: "Gigel Ion",
-        meisterCity: "Timisoara",
-        meisterPhone: "+40",
-        rating: 3,
-        price: 0,
-        title: "Mese lucrate manual",
-        meisterUid: "",
-        uid: "",
-        label: "Tamplarie",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
-    Work(
-        meisterName: "Gigel Ion",
-        meisterCity: "Timisoara",
-        meisterPhone: "+40",
-        meisterUid: "",
-        uid: "",
-        rating: 3,
-        price: 0,
-        title: "Mese lucrate manual",
-        label: "Tamplarie",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    loggedUser = HiveServices().getUserData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,40 +132,45 @@ class _ProfilePageState extends State<ProfilePage> {
             (widget.user.isMeister ?? false)
                 ? Column(
                     children: [
-                      RatingBar.builder(
-                          itemCount: 5,
-                          itemSize: 40,
-                          initialRating: 3, //rating ?? 0
-                          ignoreGestures: true,
-                          itemBuilder: (context, _) => const Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                          onRatingUpdate: (rating) {}),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.all(AppMargins.S),
-                          child: Text(
-                            "Recenzii",
-                            style: TextStyle(
-                                fontSize: AppFontSizes.XL,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: reviewList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return ReviewTile(
-                              name: reviewList[index].reviewerName,
-                              area: reviewList[index].area,
-                              phone: reviewList[index].phone,
-                              rating: reviewList[index].rating,
+                      FutureBuilder(
+                        future: databaseService.getMeisterScore(widget.user.meisterID),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData){
+                            double? rating = snapshot.data as double?;
+                            return Column(
+                              children: [
+                                SizedBox(height:10),
+                                Text("Rating meister: " + rating!.toStringAsFixed(2) + "/5",
+                                  style: TextStyle(
+                                      fontSize: AppFontSizes.XL, color: Colors.black)),
+                                SizedBox(height:10),
+                                RatingBar.builder(
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemSize: 40,
+                                    initialRating: rating,
+                                    ignoreGestures: true,
+                                    itemBuilder: (context, _) => const Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                    onRatingUpdate: (rating) {}),
+                              ],
                             );
-                          }),
+                          }
+                          return RatingBar.builder(
+                                itemCount: 5,
+                                itemSize: 40,
+                                initialRating: 0,
+                                ignoreGestures: true,
+                                itemBuilder: (context, _) => const Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                onRatingUpdate: (rating) {}
+                              );
+                        }
+                      ),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
@@ -214,15 +183,30 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-                      ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: workList.length,
-                          itemBuilder: (BuildContext context, int index) {
+                      FutureBuilder(
+                        future: databaseService.getMeisterWorks(widget.user.meisterID),
+                        builder: ((context, snapshot) {
+                        if (snapshot.hasData){
+                          List<Work>? workList = snapshot.data as List<Work>?;
+                          return ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: workList!.length,
+                            itemBuilder: (BuildContext context, int index) {
                             return WorkCard(
-                              work: workList[index],
-                            );
-                          }),
+                                work: workList[index],
+                              );
+                            }
+                          );
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Text("Aceast meserias nu are nici o lucrare",
+                              style: TextStyle(
+                                fontSize: AppFontSizes.L,
+                                color: Colors.black)),
+                        );
+                      })),
                     ],
                   )
                 : Container(),

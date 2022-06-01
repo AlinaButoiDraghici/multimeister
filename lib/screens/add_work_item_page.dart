@@ -49,6 +49,8 @@ class _AddWorkItemPageState extends State<AddWorkItemPage> {
                 title: _workTitleController.text,
                 label: _workTypeController.text,
                 price: double.parse(_priceController.text),
+                reviewList: List<String>.empty(),
+                rating: 0,
                 description: "");
             String result = await databaseService.addWork(work);
             if (result.contains("success")) {

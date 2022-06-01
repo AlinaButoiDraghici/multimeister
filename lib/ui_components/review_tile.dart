@@ -1,18 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:multimeister/models/hive_user.dart';
+import 'package:multimeister/screens/profile_page.dart';
 import 'package:multimeister/ui_components/ui_specs.dart';
 
 class ReviewTile extends StatefulWidget {
   final String name;
-  final String area;
-  final String phone;
   final double? rating;
   const ReviewTile(
       {Key? key,
       required this.name,
-      required this.area,
-      required this.phone,
       this.rating})
       : super(key: key);
 
@@ -39,10 +36,6 @@ class _ReviewTileState extends State<ReviewTile> {
                 style: TextStyle(fontSize: AppFontSizes.M, color: Colors.black),
               ),
             ),
-            subtitle: Text(
-              "${widget.area}\n${widget.phone}",
-              style: TextStyle(fontSize: AppFontSizes.S, color: Colors.grey),
-            ),
             leading: CircleAvatar(
               //TODO: add profile photo if it exists
               backgroundColor: AppColors.Yellow,
@@ -67,8 +60,16 @@ class _ReviewTileState extends State<ReviewTile> {
                   IconButton(
                     icon: const Icon(Icons.arrow_forward_ios),
                     onPressed: () {
-                      //TODO: navigate to profile
-                    },
+                      // TODO: Add navigation...
+                      // HiveUser hiveUser =???
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => ProfilePage(
+                      //             user: hiveUser!,
+                      //           )),
+                      //         );
+                    }
                   ),
                 ],
               ),

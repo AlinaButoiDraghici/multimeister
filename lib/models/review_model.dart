@@ -1,19 +1,34 @@
 class Review {
-  String uid;
-  String reviewerUid;
-  String meisterUid;
-  //TODO: delete these
-  String reviewerName;
-  String area;
-  String phone;
+  String uid = "";
+  String reviewerUid = "";
+  String reviewerName = "";
+  String meisterUid = "";
+  String workItemUid = "";
 
-  double rating;
+  double rating = 0;
   Review(
-      {this.uid = "",
-      this.reviewerUid = "",
-      this.meisterUid = "",
-      this.reviewerName = "",
-      this.area = "",
-      this.phone = "",
-      this.rating = 0});
+      {required this.uid,
+      required this.reviewerUid,
+      required this.reviewerName,
+      required this.meisterUid,
+      required this.workItemUid,
+      required this.rating});
+  
+  Review.fromMap(Map<String, dynamic> map) {
+    uid = map["uid"];
+    reviewerUid = map["userUid"];
+    reviewerName = map["reviewerName"];
+    meisterUid = map["meisterUid"];
+    workItemUid = map["workItemUid"];
+    rating = map["rating"];
+  }
+
+  Map<String, dynamic> toMap() => {
+        "uid": uid,
+        "meisterUid": meisterUid,
+        "reviewerUid": reviewerUid,
+        "reviewerName": reviewerName,
+        "workItemUid": workItemUid,
+        "rating": rating,
+      };
 }
